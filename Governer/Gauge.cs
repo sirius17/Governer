@@ -4,12 +4,12 @@ using System.Threading;
 namespace Governer
 {
 	public class Gauge
-	{
-		public Gauge (string name, int windowSizeInSeconds)
+	{	
+		public Gauge (string name, int windowSizeInSeconds, IGaugeStorage storage = null)
 		{
 			this.Name = name;
 			this.WindowSize = windowSizeInSeconds;
-			_window = this.GetWindow ();
+			_storage = storage ?? InProcGaugeStorage.Instance;
 		}
 
 		public static readonly DateTime EpochTime = new DateTime(2015,1,1, 0,0,0, DateTimeKind.Utc);
@@ -24,29 +24,13 @@ namespace Governer
 			private set;
 		}
 
-		private int _count = 0;
-		private ulong _window = 0;
-		private readonly object _syncRoot = new object();
-		public int Increment ()
-		{
-			if (_window != this.GetWindow ())
-				this.RefreshWindow ();
-			_count++;
-			return _count;
-			
-		}
+		private IGaugeStorage _storage;
 
-		void RefreshWindow ()
+		public ulong Increment ()
 		{
-			lock (_syncRoot) 
-			{
-				var window = this.GetWindow ();
-				if (window != _window) 
-				{
-					_window = window;
-					_count = 0;
-				}
-			}
+			var window = this.GetWindow ();
+			return _storage.Increment (this.Name, window);
+			
 		}
 
 		private ulong GetWindow ()

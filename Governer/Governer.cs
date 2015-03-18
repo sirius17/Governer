@@ -8,11 +8,11 @@ namespace Governer
 		{
 			var windowSizeInSeconds = Convert.ToInt32(windowSize.TotalSeconds);
 			_gauge = new Gauge (name, windowSizeInSeconds);
-			_maxCount = windowSizeInSeconds * maxRatePerSecond;
+			_maxCount = (ulong)(windowSizeInSeconds * maxRatePerSecond);
 		}
 
 		private readonly Gauge _gauge;
-		private readonly long _maxCount = 0;
+		private readonly ulong _maxCount = 0;
 		
 		public bool IsAllowed ()
 		{

@@ -34,5 +34,10 @@
     <Compile Include="Clock.cs" />
     <Compile Include="Gauge.cs" />
     <Compile Include="Governer.cs" />
+    <Compile Include="IGaugeStorage.cs" />
+    <Compile Include="InProcGaugeStorage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Redis\" />
   </ItemGroup>
 </Project>
