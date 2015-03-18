@@ -34,6 +34,26 @@ namespace Governer.Tests
 			Thread.Sleep (2500);
 			Assert.AreEqual(1, gauge.Increment());
 		}
+
+		[Test]
+		public void GaugeNamesAreCaseInsensitiveTest()
+		{
+			var gaugeName = Guid.NewGuid ().ToString ("N") + "TESTKEY";
+			var gauge1 = new Gauge(gaugeName, 15);
+			var gauge2 = new Gauge(gaugeName.ToLower(), 15);
+			Assert.AreEqual(1, gauge1.Increment());
+			Assert.AreEqual(2, gauge2.Increment());
+		}
+
+		[Test]
+		public void GaugeWillReturn0OnFaultTest()
+		{
+			var storageMock = new Mock<IGaugeStorage> ();
+			storageMock.Setup (m => m.Increment (It.IsAny<string> (), It.IsAny<ulong> ())).Throws (new Exception ("Something failed."));
+			var gaugeName = Guid.NewGuid ().ToString ("N");
+			var gauge1 = new Gauge(gaugeName, 15, storageMock.Object);
+			Assert.AreEqual(0, gauge1.Increment());
+		}
 	}
 }
 

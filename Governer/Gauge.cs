@@ -29,7 +29,14 @@ namespace Governer
 		public ulong Increment ()
 		{
 			var window = this.GetWindow ();
-			return _storage.Increment (this.Name, window);
+			try 
+			{
+				return _storage.Increment (this.Name, window);
+			}
+			catch 
+			{
+				return 0;
+			}
 			
 		}
 
