@@ -33,5 +33,6 @@
   <ItemGroup>
     <Compile Include="Clock.cs" />
     <Compile Include="Gauge.cs" />
+    <Compile Include="Governer.cs" />
   </ItemGroup>
 </Project>

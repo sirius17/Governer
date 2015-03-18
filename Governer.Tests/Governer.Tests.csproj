@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="ClockFixture.cs" />
     <Compile Include="GaugeFixture.cs" />
+    <Compile Include="GovernerFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
