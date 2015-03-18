@@ -35,12 +35,16 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\packages\StackExchange.Redis.1.0.414\lib\net45\StackExchange.Redis.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClockFixture.cs" />
     <Compile Include="GaugeFixture.cs" />
     <Compile Include="GovernerFixture.cs" />
     <Compile Include="InProcGaugeStorageFixture.cs" />
+    <Compile Include="RedisGaugeStorageFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
