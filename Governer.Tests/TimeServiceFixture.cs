@@ -2,6 +2,7 @@
 using System;
 using Moq;
 using System.Threading;
+using Governer.Internal;
 
 namespace Governer.Tests
 {
@@ -26,7 +27,7 @@ namespace Governer.Tests
 		[Test ()]
 		public void OffsetShouldBePositiveWhenServerIsAheadTest ()
 		{
-			var timerMock = new Mock<Timer> ();
+			var timerMock = new Mock<global::Governer.Internal.Timer> ();
 			timerMock
 				.Setup (x => x.MeasureInSeconds (It.IsAny<Action> ()))
 				.Returns<Action> (x => {
@@ -48,7 +49,7 @@ namespace Governer.Tests
 		[Test ()]
 		public void OffsetShouldBeNegativeWhenServerIsBehindTest ()
 		{
-			var timerMock = new Mock<Timer> ();
+			var timerMock = new Mock<global::Governer.Internal.Timer> ();
 			timerMock
 				.Setup (x => x.MeasureInSeconds (It.IsAny<Action> ()))
 				.Returns<Action> (x => {

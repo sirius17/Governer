@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Governer
+namespace Governer.Internal
 {
 	public abstract class Timer
 	{

@@ -2,6 +2,7 @@
 using NUnit.Framework;
 using System.Threading;
 using Moq;
+using Governer.Internal;
 
 namespace Governer.Tests
 {

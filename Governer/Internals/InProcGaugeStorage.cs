@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Governer
+namespace Governer.Internal
 {
 	public class InProcGaugeStorage : IGaugeStorage
 	{

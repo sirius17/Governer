@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace Governer
+namespace Governer.Internal
 {
 	public class TimeService : IDisposable
 	{

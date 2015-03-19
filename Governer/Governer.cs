@@ -1,4 +1,5 @@
 ﻿using System;
+using Governer.Internal;
 
 namespace Governer
 {
@@ -6,7 +7,7 @@ namespace Governer
 	{
 		public Governer (Gauge gauge, int maxRatePerSecond)
 		{
-			_gauge = gauge;
+			this.Gauge = gauge;
 			_maxCount = (ulong)(gauge.WindowSizeInSeconds * maxRatePerSecond);
 		}
 
@@ -14,15 +15,13 @@ namespace Governer
 
 		internal static readonly GovernerSettings Settings = new GovernerSettings();
 
-		private readonly Gauge _gauge;
+		public Gauge Gauge {get; private set;}
 		private readonly ulong _maxCount = 0;
 		
 		public bool IsAllowed ()
 		{
-			var count = _gauge.Increment ();
+			var count = this.Gauge.Increment ();
 			return count <= _maxCount;
-
-			
 		}
 	}
 }

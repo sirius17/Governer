@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Governer
+namespace Governer.Internal
 {
 	public class GovernerSettingsBuilder
 	{
@@ -20,6 +20,12 @@ namespace Governer
 			};
 			_actions.Add (action);
 			return this;
+		}
+
+		public void Reset()
+		{
+			Governer.Settings.Clock = null;
+			Governer.Settings.StorageFactory = null;
 		}
 
 		public GovernerSettingsBuilder WithClock( Clock clock )

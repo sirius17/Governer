@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using Governer.Internal;
 
 namespace Governer
 {
@@ -9,12 +10,15 @@ namespace Governer
 		{
 			this.Name = name;
 			this.WindowSizeInSeconds = windowSizeInSeconds;
-			if (storage == null) 
+
+			if (storage != null) 
+				this.Storage = storage;
+			else 
 			{
 				if (Governer.Settings.StorageFactory == null)
-					_storage = InProcGaugeStorage.Instance;
+					this.Storage = InProcGaugeStorage.Instance;
 				else
-					_storage = Governer.Settings.StorageFactory();
+					this.Storage = Governer.Settings.StorageFactory();
 			}
 			this.Clock = clock ?? (Governer.Settings.Clock ?? Clock.Default);
 		}
@@ -27,14 +31,15 @@ namespace Governer
 
 		public Clock Clock {get; private set;}
 
-		private IGaugeStorage _storage;
+		public IGaugeStorage Storage {get; private set;}
 
 		public ulong Increment ()
 		{
 			var window = this.GetWindow ();
+			Console.WriteLine (window);
 			try 
 			{
-				return _storage.Increment (this.Name, window);
+				return this.Storage.Increment (this.Name, window);
 			}
 			catch 
 			{

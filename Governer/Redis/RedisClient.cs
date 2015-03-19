@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using StackExchange.Redis;
 
-namespace Governer
+namespace Governer.Redis
 {
 	public class RedisClient : IRedisClient
 	{

@@ -1,5 +1,6 @@
 ﻿using System;
 using StackExchange.Redis;
+using Governer.Internal;
 
 namespace Governer.Redis
 {

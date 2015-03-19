@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Governer
+namespace Governer.Redis
 {
 	public interface IRedisClient
 	{

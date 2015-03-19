@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Moq;
+using Governer.Internal;
 
 namespace Governer.Tests
 {
