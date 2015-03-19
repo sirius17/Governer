@@ -51,7 +51,7 @@ namespace Governer.Tests
 			var storageMock = new Mock<IGaugeStorage> ();
 			storageMock.Setup (m => m.Increment (It.IsAny<string> (), It.IsAny<ulong> ())).Throws (new Exception ("Something failed."));
 			var gaugeName = Guid.NewGuid ().ToString ("N");
-			var gauge1 = new Gauge(gaugeName, 15, storageMock.Object);
+			var gauge1 = new Gauge(gaugeName, 15, null, storageMock.Object);
 			Assert.AreEqual(0, gauge1.Increment());
 		}
 	}

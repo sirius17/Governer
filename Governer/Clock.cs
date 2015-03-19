@@ -18,6 +18,15 @@ namespace Governer
 
 		}
 
+		private static readonly Clock _default = new Clock ();
+		public static Clock Default 
+		{
+			get 
+			{
+				return _default;
+			}
+		}
+
 		public ITimeSource TimeSource {get; private set;}
 
 		public TimeService TimeService  {get; private set;}

@@ -4,11 +4,10 @@ namespace Governer
 {
 	public class Governer
 	{
-		public Governer (string name, int maxRatePerSecond, TimeSpan windowSize)
+		public Governer (Gauge gauge, int maxRatePerSecond)
 		{
-			var windowSizeInSeconds = Convert.ToInt32(windowSize.TotalSeconds);
-			_gauge = new Gauge (name, windowSizeInSeconds);
-			_maxCount = (ulong)(windowSizeInSeconds * maxRatePerSecond);
+			_gauge = gauge;
+			_maxCount = (ulong)(gauge.WindowSizeInSeconds * maxRatePerSecond);
 		}
 
 		private readonly Gauge _gauge;

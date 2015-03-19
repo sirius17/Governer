@@ -46,6 +46,7 @@
     <Compile Include="InProcGaugeStorageFixture.cs" />
     <Compile Include="RedisGaugeStorageFixture.cs" />
     <Compile Include="TimeServiceFixture.cs" />
+    <Compile Include="IntegrationFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

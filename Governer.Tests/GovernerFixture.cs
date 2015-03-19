@@ -9,14 +9,16 @@ namespace Governer.Tests
 		[Test]
 		public void GovernerTest ()
 		{
-			var governer = new Governer ("tenant-x-multi-avail", 25, new TimeSpan (0, 5, 0));
+			var gauge = new Gauge ("tenant-x-multi-avail", 5 * 60);
+			var governer = new Governer (gauge, 25);
 			Assert.AreEqual (true, governer.IsAllowed ());
 		}
 
 		[Test]
 		public void ExceedingRateShouldNotBeAllowedTest ()
 		{
-			var governer = new Governer ("tenant-x-multi-avail", 0, new TimeSpan (0, 5, 0));
+			var gauge = new Gauge ("tenant-x-multi-avail", 5 * 60);
+			var governer = new Governer (gauge, 0);
 			Assert.AreEqual (false, governer.IsAllowed ());
 		}
 	}
