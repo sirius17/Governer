@@ -49,6 +49,7 @@
     <Compile Include="TimeServiceFixture.cs" />
     <Compile Include="IntegrationFixture.cs" />
     <Compile Include="GovernerSettingsFixture.cs" />
+    <Compile Include="NtpTimeServer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

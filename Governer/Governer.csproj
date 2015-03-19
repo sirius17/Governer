@@ -45,6 +45,7 @@
     <Compile Include="Internals\IGaugeStorage.cs" />
     <Compile Include="Internals\InProcGaugeStorage.cs" />
     <Compile Include="Internals\GovernerSettingsBuilder.cs" />
+    <Compile Include="Internals\NtpTimeServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Redis\" />
@@ -54,6 +55,8 @@
     <Reference Include="StackExchange.Redis">
       <HintPath>..\packages\StackExchange.Redis.1.0.414\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
