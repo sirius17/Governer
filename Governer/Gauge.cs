@@ -36,7 +36,6 @@ namespace Governer
 		public ulong Increment ()
 		{
 			var window = this.GetWindow ();
-			Console.WriteLine (window);
 			try 
 			{
 				return this.Storage.Increment (this.Name, window);
