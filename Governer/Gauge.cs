@@ -14,15 +14,9 @@ namespace Governer
 
 		public static readonly DateTime EpochTime = new DateTime(2015,1,1, 0,0,0, DateTimeKind.Utc);
 
-		public string Name {
-			get;
-			private set;
-		}
+		public string Name {get; private set;}
 
-		public int WindowSize {
-			get;
-			private set;
-		}
+		public int WindowSize {get; private set;}
 
 		private IGaugeStorage _storage;
 

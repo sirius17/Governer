@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
+using Moq;
+using System.Threading;
 
 namespace Governer.Tests
 {
@@ -7,14 +9,82 @@ namespace Governer.Tests
 	public class TimeServiceFixture
 	{
 		[Test ()]
-		public void InitializeTimeSourceTest ()
+		public void InitializeTimeServiceTest ()
 		{
-			var offset = new TimeSpan (0, 0, 10);
-			var timeSource = new TimeService (offset);
-			var currentTime = DateTime.UtcNow;
-			var timestampFromTimeSource = timeSource.GetCurrentTime (currentTime)
-				;
-			Assert.AreEqual (10, (timestampFromTimeSource - currentTime).Seconds);
+			var utcNow = DateTime.UtcNow;
+			var serverMock = new Mock<ITimeServer> ();
+			serverMock
+				.Setup (s => s.GetCurrentUtcTime (It.IsAny<DateTime> ()))
+				.Returns <DateTime>(t => t);
+			ITimeServer[] servers = new [] { serverMock.Object };
+			var service = new TimeService (servers);
+			var correction = service.GetClockOffset (DateTime.UtcNow);
+			Assert.AreEqual (0, correction.TotalSeconds);
+		}
+
+
+		[Test ()]
+		public void OffsetShouldBePositiveWhenServerIsAheadTest ()
+		{
+			var timerMock = new Mock<Timer> ();
+			timerMock
+				.Setup (x => x.MeasureInSeconds (It.IsAny<Action> ()))
+				.Returns<Action> (x => {
+						x();	
+						return 2;
+					});
+			
+			var serverMock = new Mock<ITimeServer> ();
+			serverMock
+				.Setup (s => s.GetCurrentUtcTime (It.IsAny<DateTime> ()))
+				.Returns<DateTime> (d =>  d.AddSeconds(6));
+			
+			ITimeServer[] servers = new [] { serverMock.Object };
+			var service = new TimeService (servers, timerMock.Object);
+			var correction = service.GetClockOffset (DateTime.UtcNow);
+			Assert.AreEqual (5, correction.TotalSeconds);
+		}
+
+		[Test ()]
+		public void OffsetShouldBeNegativeWhenServerIsBehindTest ()
+		{
+			var timerMock = new Mock<Timer> ();
+			timerMock
+				.Setup (x => x.MeasureInSeconds (It.IsAny<Action> ()))
+				.Returns<Action> (x => {
+					x();	
+					return 2;
+				});
+
+			var serverMock = new Mock<ITimeServer> ();
+			serverMock
+				.Setup (s => s.GetCurrentUtcTime (It.IsAny<DateTime> ()))
+				.Returns<DateTime> (d =>  d.AddSeconds(-6));
+			ITimeServer[] servers = new [] { serverMock.Object };
+			var service = new TimeService (servers, timerMock.Object);
+			var correction = service.GetClockOffset (DateTime.UtcNow);
+			Assert.AreEqual (-5, correction.TotalSeconds);
+		}
+
+		[Test]
+		public void OffsetShouldBeZeroIfNoTimeServersAreProvided()
+		{
+			var service = new TimeService (null, null);
+			Assert.AreEqual (TimeSpan.Zero, service.GetClockOffset (DateTime.UtcNow));
+
+			service = new TimeService (new ITimeServer[] {}, null);
+			Assert.AreEqual (TimeSpan.Zero, service.GetClockOffset (DateTime.UtcNow));
+		}
+
+		[Test]
+		public void OffsetShouldBeZeroIfAllTimeServersAreFaultingTest()
+		{
+			var serverMock = new Mock<ITimeServer> ();
+			serverMock
+				.Setup (s => s.GetCurrentUtcTime (It.IsAny<DateTime> ()))
+				.Throws (new Exception ("Server unavailable"));
+			var service = new TimeService (new ITimeServer[] { serverMock.Object });
+			Assert.AreEqual (TimeSpan.Zero, service.GetClockOffset (DateTime.UtcNow));
 		}
 	}
 }

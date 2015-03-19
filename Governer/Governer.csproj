@@ -39,9 +39,13 @@
     <Compile Include="Redis\GaugeStorage.cs" />
     <Compile Include="Redis\IRedisClient.cs" />
     <Compile Include="Redis\RedisClient.cs" />
+    <Compile Include="ITimeService.cs" />
+    <Compile Include="TimeService.cs" />
+    <Compile Include="Utilities\Timer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Redis\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="StackExchange.Redis">
