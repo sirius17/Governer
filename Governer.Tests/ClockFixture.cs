@@ -30,6 +30,18 @@ namespace Governer.Tests
 			Assert.AreEqual (5, difference);
 		}
 
+		[Test]
+		public void ClockShouldUseTimeSourceTest()
+		{
+			var utcNow = DateTime.UtcNow.AddDays (-10);
+			var timeSourceMock = new Mock<ITimeSource> ();
+			timeSourceMock
+				.Setup (x => x.GetUtcNow ())
+				.Returns (utcNow);
+			var clock = new Clock (timeSource: timeSourceMock.Object);
+			Assert.AreEqual (utcNow, clock.GetSystemUtcTime ());
+		}
+
 
 	}
 }
