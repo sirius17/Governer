@@ -4,7 +4,7 @@ namespace Governer.Internal
 {
 	public interface ITimeServer : IDisposable
 	{
-		DateTime GetCurrentUtcTime(DateTime utcNow );
+		DateTime GetCurrentUtcTime();
 	}
 }
 

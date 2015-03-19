@@ -42,7 +42,7 @@ namespace Governer.Internal
 				DateTime serverTime = now;
 				networkLatencyInSeconds = this.Timer.MeasureInSeconds( () => 
 																		{
-																			serverTime = server.GetCurrentUtcTime(now);
+																			serverTime = server.GetCurrentUtcTime();
 																		});
 				serverNow = serverTime;
 				return true;

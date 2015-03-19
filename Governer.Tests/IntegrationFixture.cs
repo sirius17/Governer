@@ -64,8 +64,8 @@ namespace Governer.Tests
 			// Time server should be 10 seconds ahead of machine A.
 			var timeServerAMock = new Mock<ITimeServer>();
 			timeServerAMock
-				.Setup (t => t.GetCurrentUtcTime (It.IsAny<DateTime> ()))
-				.Returns<DateTime> (t => t.AddSeconds(10));
+				.Setup (t => t.GetCurrentUtcTime ())
+				.Returns (() => DateTime.UtcNow.AddSeconds(10));
 			var timeServiceA = new TimeService (new [] { timeServerAMock.Object });
 			// Local clock of machine A is 10 seconds behind the time server time.
 			var timeSourceAMock = new Mock<ITimeSource> ();
@@ -76,8 +76,8 @@ namespace Governer.Tests
 			// Time server should be 10 seconds behind of machine B.
 			var timeServerBMock = new Mock<ITimeServer>();
 			timeServerBMock
-				.Setup (t => t.GetCurrentUtcTime (It.IsAny<DateTime> ()))
-				.Returns<DateTime> (t => t.AddSeconds(-10));
+				.Setup (t => t.GetCurrentUtcTime ())
+				.Returns (() => DateTime.UtcNow.AddSeconds(-10));
 			var timeServiceB = new TimeService (new [] { timeServerBMock.Object });
 			// Local clock of machine B is 10 seconds ahead the time server time.
 			var timeSourceBMock = new Mock<ITimeSource> ();

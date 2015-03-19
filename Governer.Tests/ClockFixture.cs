@@ -23,8 +23,8 @@ namespace Governer.Tests
 		{
 			var mockServer = new Mock<ITimeServer> ();
 			mockServer
-				.Setup (m => m.GetCurrentUtcTime (It.IsAny<DateTime> ()))
-				.Returns<DateTime> (t => t.AddSeconds(5));
+				.Setup (m => m.GetCurrentUtcTime ())
+				.Returns (() => DateTime.UtcNow.AddSeconds(5));
 			var timeService = new TimeService( new [] { mockServer.Object });
 			var clock = new Clock (timeService);
 			var difference = Convert.ToInt32 ((clock.UtcNow - DateTime.UtcNow).TotalSeconds);
