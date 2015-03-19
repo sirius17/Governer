@@ -42,6 +42,8 @@
     <Compile Include="ITimeService.cs" />
     <Compile Include="TimeService.cs" />
     <Compile Include="Utilities\Timer.cs" />
+    <Compile Include="ITimeSource.cs" />
+    <Compile Include="Utilities\SystemTimeSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Redis\" />

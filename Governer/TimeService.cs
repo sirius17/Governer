@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Governer
 {
-	public class TimeService
+	public class TimeService : IDisposable
 	{
 		public TimeService (ITimeServer[] servers, Timer timer = null)
 		{
@@ -71,6 +71,33 @@ namespace Governer
 			return isNegative ? 
 				timeDifference.Subtract (networkTime.Negate ()) : 
 				timeDifference.Subtract (networkTime);
+		}
+
+		#region IDisposable implementation
+
+		private bool _isDisposed = false;
+		public void Dispose ()
+		{
+			if (_isDisposed == true)
+				return;
+			Dispose (true);	
+			_isDisposed = true;
+		}
+
+		#endregion
+
+		protected void Dispose(bool fromDispose )
+		{
+			if (fromDispose == false)
+				return;
+			else 
+			{
+				GC.SuppressFinalize (this);
+				var servers = this.Servers;
+				if (servers != null && servers.Length > 0)
+					Array.ForEach (servers, s => s.Dispose ());
+				this.Servers = null;
+			}
 		}
 	}
 

@@ -2,7 +2,7 @@
 
 namespace Governer
 {
-	public interface ITimeServer
+	public interface ITimeServer : IDisposable
 	{
 		DateTime GetCurrentUtcTime(DateTime utcNow );
 	}

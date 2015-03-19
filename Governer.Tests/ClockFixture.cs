@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Moq;
 
 namespace Governer.Tests
 {
@@ -17,15 +18,16 @@ namespace Governer.Tests
 		}
 
 		[Test]
-		public void GetUtcNowWithOffsetTest()
+		public void ClockWithTimeServiceTest()
 		{
-			var clock = new Clock ();
-			var offset = new TimeSpan (0, 0, 10);
-			clock.OffSet = offset;
-			var currentTime = DateTime.UtcNow;
-			var clockTime = clock.UtcNow;
-			var timeDifference = clockTime - currentTime;
-			Assert.IsTrue (timeDifference.Subtract(offset).Duration().TotalSeconds < 1.0d);
+			var mockServer = new Mock<ITimeServer> ();
+			mockServer
+				.Setup (m => m.GetCurrentUtcTime (It.IsAny<DateTime> ()))
+				.Returns<DateTime> (t => t.AddSeconds(5));
+			var timeService = new TimeService( new [] { mockServer.Object });
+			var clock = new Clock (timeService);
+			var difference = Convert.ToInt32 ((clock.UtcNow - DateTime.UtcNow).TotalSeconds);
+			Assert.AreEqual (5, difference);
 		}
 
 
