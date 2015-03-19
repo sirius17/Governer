@@ -10,8 +10,15 @@ namespace Governer.Tests
 		[Test]
 		public void SingleMachineOperationTest()
 		{
-			var gaugeA = new Gauge ("search-api-tenant-x", 4);
-			var gaugeB = new Gauge ("search-api-tenant-x", 4);
+			// We will use a mock time source to avoid test failures due to test running 
+			// at window boundary.
+			var timeSourceMock = new Mock<ITimeSource>();
+			timeSourceMock
+				.Setup (t => t.GetUtcNow ())
+				.Returns (DateTime.UtcNow);
+			var clock = new Clock (timeSource: timeSourceMock.Object);
+			var gaugeA = new Gauge ("search-api-tenant-x", 4, clock);
+			var gaugeB = new Gauge ("search-api-tenant-x", 4, clock);
 			var governerA = new Governer (gaugeA, 5);
 			var governerB = new Governer (gaugeB, 5);
 			//Essentially we are saying that we allow  20 requests in a 4 second window.
