@@ -9,8 +9,14 @@ namespace Governer
 		{
 			this.Name = name;
 			this.WindowSizeInSeconds = windowSizeInSeconds;
-			_storage = storage ?? InProcGaugeStorage.Instance;
-			this.Clock = clock ?? Clock.Default;
+			if (storage == null) 
+			{
+				if (Governer.Settings.StorageFactory == null)
+					_storage = InProcGaugeStorage.Instance;
+				else
+					_storage = Governer.Settings.StorageFactory();
+			}
+			this.Clock = clock ?? (Governer.Settings.Clock ?? Clock.Default);
 		}
 
 		public static readonly DateTime EpochTime = new DateTime(2015,1,1, 0,0,0, DateTimeKind.Utc);

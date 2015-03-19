@@ -33,20 +33,22 @@
     <Compile Include="Clock.cs" />
     <Compile Include="Gauge.cs" />
     <Compile Include="Governer.cs" />
-    <Compile Include="IGaugeStorage.cs" />
-    <Compile Include="InProcGaugeStorage.cs" />
     <Compile Include="Redis\GaugeStorage.cs" />
     <Compile Include="Redis\IRedisClient.cs" />
     <Compile Include="Redis\RedisClient.cs" />
-    <Compile Include="ITimeService.cs" />
-    <Compile Include="TimeService.cs" />
-    <Compile Include="Utilities\Timer.cs" />
-    <Compile Include="ITimeSource.cs" />
-    <Compile Include="Utilities\SystemTimeSource.cs" />
+    <Compile Include="GovernerSettings.cs" />
+    <Compile Include="Internals\Timer.cs" />
+    <Compile Include="Internals\SystemTimeSource.cs" />
+    <Compile Include="Internals\TimeService.cs" />
+    <Compile Include="Internals\ITimeServer.cs" />
+    <Compile Include="Internals\ITimeSource.cs" />
+    <Compile Include="Internals\IGaugeStorage.cs" />
+    <Compile Include="Internals\InProcGaugeStorage.cs" />
+    <Compile Include="Internals\GovernerSettingsBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Redis\" />
-    <Folder Include="Utilities\" />
+    <Folder Include="Internals\" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="StackExchange.Redis">

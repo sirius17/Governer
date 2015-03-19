@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Governer", "Governer\Govern
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Governer.Tests", "Governer.Tests\Governer.Tests.csproj", "{40C6781D-DDDA-40A4-9C05-8E66653EC1A0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0EA53E01-CEA7-4A0E-86D9-587338D48CCE}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		LICENSE = LICENSE
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -19,5 +25,7 @@ Global
 		{40C6781D-DDDA-40A4-9C05-8E66653EC1A0}.Debug|x86.Build.0 = Debug|Any CPU
 		{40C6781D-DDDA-40A4-9C05-8E66653EC1A0}.Release|x86.ActiveCfg = Release|Any CPU
 		{40C6781D-DDDA-40A4-9C05-8E66653EC1A0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal

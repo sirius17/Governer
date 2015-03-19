@@ -99,6 +99,29 @@ namespace Governer.Tests
 			Assert.IsFalse( governerA.IsAllowed ());
 			Assert.IsFalse( governerB.IsAllowed ());
 		}
+
+//		public void Sample()
+//		{
+//			// One time setup of the governer for your application.
+//			// Setup the machine specific clock.
+//			ITimeServer timeServer = new NtpTimeServer ("time.windows.com");
+//			var clock = new Clock (new TimeService (new [] { timeServer }));
+//			var storage = new Redis.GaugeStorage ("redis connection string");
+//			// Setup gauge for tenant X for search api
+//			var gauge = new Gauge (
+//				            name : "tenant-x-id-search", 
+//				            windowSizeInSeconds : 30,
+//				            clock : clock,
+//				            storage : storage);
+//
+//			SetupGoverner
+//				.WithClock( new Clock() )
+//
+//			
+//			Governer.Create (new Gauge ("tenant-x-search", 25), 5);
+//			
+//
+//		}		
 	}
 }
 
