@@ -18,13 +18,14 @@ namespace Governer.Redis
 		private readonly IRedisClient _client;
 
 		#region IGaugeStorage implementation
-		public ulong Increment (string gaugeName, ulong window)
-		{
-			var key = string.Format ("{0}_{1}", gaugeName, window);
-			var value = _client.Increment (key);
-			_client.Expires (key, new TimeSpan (1, 0, 0, 0));
-			return (ulong)value;
-		}
+        public ulong Increment(string gaugeName, ulong window)
+        {
+            var key = string.Format("{0}_{1}", gaugeName, window);
+            var value = _client.Increment(key);
+            if (value == 1)
+                _client.Expires(key, new TimeSpan(0, 0, 0, (int)window * 2));
+            return (ulong)value;
+        }
 		#endregion
 				
 	}
