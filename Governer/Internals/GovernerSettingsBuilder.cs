@@ -26,6 +26,7 @@ namespace Governer.Internal
 		{
 			Governer.Settings.Clock = null;
 			Governer.Settings.StorageFactory = null;
+            Governer.Settings.WindowExpiry = GovernerSettings.DefaultWindowExpiry;
 		}
 
 		public GovernerSettingsBuilder WithClock( Clock clock )
@@ -68,6 +69,12 @@ namespace Governer.Internal
 			if (settings.Clock == null)
 				settings.Clock = new Clock ();
 		}
-	}
+
+        public GovernerSettingsBuilder WithWindowExpiry(TimeSpan timeSpan)
+        {
+            _actions.Add(s => s.WindowExpiry = timeSpan);
+            return this;
+        }
+    }
 }
 

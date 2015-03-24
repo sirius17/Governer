@@ -23,11 +23,20 @@ namespace Governer.Redis
             var key = string.Format("{0}_{1}", gaugeName, window);
             var value = _client.Increment(key);
             if (value == 1)
-                _client.Expires(key, new TimeSpan(0, 0, 0, (int)window * 2));
+                _client.Expires(key, GetWindowExpiry());
             return (ulong)value;
         }
 		#endregion
-				
+
+        private TimeSpan GetWindowExpiry()
+        {
+            TimeSpan expiry = TimeSpan.Zero;
+            if (Governer.Settings != null)
+                expiry = Governer.Settings.WindowExpiry;
+            else
+                expiry = GovernerSettings.DefaultWindowExpiry;
+            return expiry;
+        }
 	}
 }
 
